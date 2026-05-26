@@ -3,13 +3,32 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: CarsInMyCity API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: cars
+    description: Car listing operations
+  - name: users
+    description: User account operations
+  - name: sellers
+    description: Seller profile operations
+  - name: buyers
+    description: Buyer profile operations
+  - name: favorites
+    description: Saved/favorited car operations
+  - name: inquiries
+    description: Buyer-to-seller inquiry operations
+  - name: makes
+    description: Car make and model operations
+  - name: stats
+    description: Marketplace stats and summaries
+  - name: search
+    description: Search and autocomplete operations
+
 paths:
   /healthz:
     get:
@@ -24,6 +43,582 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── Car Listings ─────────────────────────────────────────────────────────────
+
+  /cars:
+    get:
+      operationId: listCars
+      tags: [cars]
+      summary: List / search cars
+      parameters:
+        - name: make
+          in: query
+          schema: { type: string }
+        - name: model
+          in: query
+          schema: { type: string }
+        - name: yearMin
+          in: query
+          schema: { type: integer }
+        - name: yearMax
+          in: query
+          schema: { type: integer }
+        - name: priceMin
+          in: query
+          schema: { type: number }
+        - name: priceMax
+          in: query
+          schema: { type: number }
+        - name: mileageMax
+          in: query
+          schema: { type: integer }
+        - name: condition
+          in: query
+          schema: { type: string, enum: [new, used, certified] }
+        - name: bodyStyle
+          in: query
+          schema: { type: string }
+        - name: transmission
+          in: query
+          schema: { type: string }
+        - name: fuelType
+          in: query
+          schema: { type: string }
+        - name: color
+          in: query
+          schema: { type: string }
+        - name: state
+          in: query
+          schema: { type: string }
+        - name: city
+          in: query
+          schema: { type: string }
+        - name: zipCode
+          in: query
+          schema: { type: string }
+        - name: radius
+          in: query
+          schema: { type: integer }
+        - name: sellerType
+          in: query
+          schema: { type: string, enum: [dealer, private, certified_dealer] }
+        - name: sortBy
+          in: query
+          schema: { type: string, enum: [price_asc, price_desc, year_desc, mileage_asc, newest] }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 24 }
+      responses:
+        "200":
+          description: Paginated list of cars
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarListResponse"
+    post:
+      operationId: createCar
+      tags: [cars]
+      summary: Create a car listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+
+  /cars/featured:
+    get:
+      operationId: getFeaturedCars
+      tags: [cars]
+      summary: Get featured car listings for homepage
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 12 }
+      responses:
+        "200":
+          description: Featured cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+
+  /cars/recent:
+    get:
+      operationId: getRecentCars
+      tags: [cars]
+      summary: Get recently listed cars
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 8 }
+      responses:
+        "200":
+          description: Recently listed cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+
+  /cars/{id}:
+    get:
+      operationId: getCar
+      tags: [cars]
+      summary: Get a single car listing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Car detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateCar
+      tags: [cars]
+      summary: Update a car listing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarUpdate"
+      responses:
+        "200":
+          description: Updated car
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+    delete:
+      operationId: deleteCar
+      tags: [cars]
+      summary: Delete a car listing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # ── Users ─────────────────────────────────────────────────────────────────
+
+  /users/register:
+    post:
+      operationId: registerUser
+      tags: [users]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+      responses:
+        "201":
+          description: Registered user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/login:
+    post:
+      operationId: loginUser
+      tags: [users]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+      responses:
+        "200":
+          description: Logged in user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/me:
+    get:
+      operationId: getMe
+      tags: [users]
+      summary: Get current user profile
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    patch:
+      operationId: updateMe
+      tags: [users]
+      summary: Update current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+      responses:
+        "200":
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # ── Sellers ───────────────────────────────────────────────────────────────
+
+  /sellers/me:
+    get:
+      operationId: getMySellerProfile
+      tags: [sellers]
+      summary: Get my seller profile
+      responses:
+        "200":
+          description: Seller profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerProfile"
+    patch:
+      operationId: updateMySellerProfile
+      tags: [sellers]
+      summary: Update my seller profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellerProfileUpdate"
+      responses:
+        "200":
+          description: Updated seller profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerProfile"
+
+  /sellers/me/listings:
+    get:
+      operationId: getMyListings
+      tags: [sellers]
+      summary: Get all my car listings
+      responses:
+        "200":
+          description: My listings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+
+  /sellers/{id}:
+    get:
+      operationId: getSellerProfile
+      tags: [sellers]
+      summary: Get a public seller profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Seller profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerProfile"
+
+  # ── Buyers ────────────────────────────────────────────────────────────────
+
+  /buyers/me:
+    get:
+      operationId: getMyBuyerProfile
+      tags: [buyers]
+      summary: Get my buyer preferences profile
+      responses:
+        "200":
+          description: Buyer profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BuyerProfile"
+    patch:
+      operationId: updateMyBuyerProfile
+      tags: [buyers]
+      summary: Update my buyer preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BuyerProfileUpdate"
+      responses:
+        "200":
+          description: Updated buyer profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BuyerProfile"
+
+  # ── Favorites ─────────────────────────────────────────────────────────────
+
+  /favorites:
+    get:
+      operationId: listFavorites
+      tags: [favorites]
+      summary: Get all favorited cars
+      responses:
+        "200":
+          description: Favorite cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+    post:
+      operationId: addFavorite
+      tags: [favorites]
+      summary: Add a car to favorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoriteInput"
+      responses:
+        "201":
+          description: Added to favorites
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Favorite"
+
+  /favorites/{carId}:
+    delete:
+      operationId: removeFavorite
+      tags: [favorites]
+      summary: Remove a car from favorites
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Removed
+
+  # ── Inquiries ─────────────────────────────────────────────────────────────
+
+  /inquiries:
+    get:
+      operationId: listInquiries
+      tags: [inquiries]
+      summary: List inquiries (seller sees received; buyer sees sent)
+      responses:
+        "200":
+          description: Inquiries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Inquiry"
+    post:
+      operationId: createInquiry
+      tags: [inquiries]
+      summary: Send an inquiry about a car
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InquiryInput"
+      responses:
+        "201":
+          description: Inquiry sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Inquiry"
+
+  /inquiries/{id}:
+    get:
+      operationId: getInquiry
+      tags: [inquiries]
+      summary: Get an inquiry by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Inquiry detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Inquiry"
+
+  # ── Makes & Models ────────────────────────────────────────────────────────
+
+  /makes:
+    get:
+      operationId: listMakes
+      tags: [makes]
+      summary: List all car makes
+      responses:
+        "200":
+          description: Car makes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CarMake"
+
+  /makes/{makeId}/models:
+    get:
+      operationId: listModels
+      tags: [makes]
+      summary: List models for a given make
+      parameters:
+        - name: makeId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Models for make
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CarModel"
+
+  # ── Stats ─────────────────────────────────────────────────────────────────
+
+  /stats/summary:
+    get:
+      operationId: getMarketplaceSummary
+      tags: [stats]
+      summary: Marketplace summary stats
+      responses:
+        "200":
+          description: Summary stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarketplaceSummary"
+
+  /stats/by-state:
+    get:
+      operationId: getCarsByState
+      tags: [stats]
+      summary: Car listing count by state
+      responses:
+        "200":
+          description: Count by state
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StateCount"
+
+  /stats/price-ranges:
+    get:
+      operationId: getPriceRanges
+      tags: [stats]
+      summary: Distribution of listings by price range
+      responses:
+        "200":
+          description: Price distribution
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PriceRange"
+
+  /stats/top-makes:
+    get:
+      operationId: getTopMakes
+      tags: [stats]
+      summary: Top makes by listing count
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 10 }
+      responses:
+        "200":
+          description: Top makes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MakeCount"
+
+  # ── Search ────────────────────────────────────────────────────────────────
+
+  /search/suggestions:
+    get:
+      operationId: getSearchSuggestions
+      tags: [search]
+      summary: Autocomplete suggestions for search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Suggestions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SearchSuggestion"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +629,432 @@ components:
       required:
         - status
 
+    # ── Car ──────────────────────────────────────────────────────────────────
+
+    Car:
+      type: object
+      required:
+        - id
+        - title
+        - make
+        - model
+        - year
+        - price
+        - mileage
+        - condition
+        - state
+        - city
+        - zipCode
+        - sellerType
+        - status
+        - createdAt
+      properties:
+        id:            { type: integer }
+        title:         { type: string }
+        make:          { type: string }
+        model:         { type: string }
+        trim:          { type: ["string", "null"] }
+        year:          { type: integer }
+        price:         { type: number }
+        mileage:       { type: integer }
+        condition:     { type: string, enum: [new, used, certified] }
+        bodyStyle:     { type: ["string", "null"] }
+        transmission:  { type: ["string", "null"] }
+        fuelType:      { type: ["string", "null"] }
+        drivetrain:    { type: ["string", "null"] }
+        engineSize:    { type: ["string", "null"] }
+        exteriorColor: { type: ["string", "null"] }
+        interiorColor: { type: ["string", "null"] }
+        interiorType:  { type: ["string", "null"] }
+        mpgCity:       { type: ["integer", "null"] }
+        mpgHighway:    { type: ["integer", "null"] }
+        vin:           { type: ["string", "null"] }
+        titleStatus:   { type: ["string", "null"] }
+        tireSize:      { type: ["string", "null"] }
+        audioSystem:   { type: ["string", "null"] }
+        features:      { type: array, items: { type: string } }
+        photos:        { type: array, items: { type: string } }
+        description:   { type: ["string", "null"] }
+        state:         { type: string }
+        city:          { type: string }
+        zipCode:       { type: string }
+        latitude:      { type: ["number", "null"] }
+        longitude:     { type: ["number", "null"] }
+        sellerType:    { type: string, enum: [dealer, private, certified_dealer] }
+        sellerId:      { type: integer }
+        sellerName:    { type: ["string", "null"] }
+        deliveryAvailable: { type: boolean }
+        deliveryFee:   { type: ["number", "null"] }
+        status:        { type: string, enum: [active, sold, pending, draft] }
+        viewCount:     { type: integer }
+        favoriteCount: { type: integer }
+        isFavorited:   { type: boolean }
+        createdAt:     { type: string, format: date-time }
+        updatedAt:     { type: string, format: date-time }
+
+    CarInput:
+      type: object
+      required:
+        - make
+        - model
+        - year
+        - price
+        - mileage
+        - condition
+        - state
+        - city
+        - zipCode
+        - sellerType
+      properties:
+        make:          { type: string }
+        model:         { type: string }
+        trim:          { type: string }
+        year:          { type: integer }
+        price:         { type: number }
+        mileage:       { type: integer }
+        condition:     { type: string, enum: [new, used, certified] }
+        bodyStyle:     { type: string }
+        transmission:  { type: string }
+        fuelType:      { type: string }
+        drivetrain:    { type: string }
+        engineSize:    { type: string }
+        exteriorColor: { type: string }
+        interiorColor: { type: string }
+        interiorType:  { type: string }
+        mpgCity:       { type: integer }
+        mpgHighway:    { type: integer }
+        vin:           { type: string }
+        titleStatus:   { type: string }
+        tireSize:      { type: string }
+        audioSystem:   { type: string }
+        features:      { type: array, items: { type: string } }
+        photos:        { type: array, items: { type: string } }
+        description:   { type: string }
+        state:         { type: string }
+        city:          { type: string }
+        zipCode:       { type: string }
+        latitude:      { type: number }
+        longitude:     { type: number }
+        sellerType:    { type: string, enum: [dealer, private, certified_dealer] }
+        deliveryAvailable: { type: boolean }
+        deliveryFee:   { type: number }
+
+    CarUpdate:
+      type: object
+      properties:
+        price:         { type: number }
+        mileage:       { type: integer }
+        description:   { type: string }
+        photos:        { type: array, items: { type: string } }
+        features:      { type: array, items: { type: string } }
+        status:        { type: string, enum: [active, sold, pending, draft] }
+        deliveryAvailable: { type: boolean }
+        deliveryFee:   { type: number }
+        exteriorColor: { type: string }
+        interiorColor: { type: string }
+
+    CarListResponse:
+      type: object
+      required:
+        - cars
+        - total
+        - page
+        - limit
+      properties:
+        cars:   { type: array, items: { $ref: "#/components/schemas/Car" } }
+        total:  { type: integer }
+        page:   { type: integer }
+        limit:  { type: integer }
+
+    # ── User ─────────────────────────────────────────────────────────────────
+
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+        - role
+        - createdAt
+      properties:
+        id:            { type: integer }
+        email:         { type: string }
+        firstName:     { type: string }
+        lastName:      { type: string }
+        phone:         { type: ["string", "null"] }
+        avatarUrl:     { type: ["string", "null"] }
+        role:          { type: string, enum: [buyer, seller, both, admin] }
+        createdAt:     { type: string, format: date-time }
+
+    UserRegistration:
+      type: object
+      required:
+        - email
+        - password
+        - firstName
+        - lastName
+        - role
+      properties:
+        email:     { type: string }
+        password:  { type: string }
+        firstName: { type: string }
+        lastName:  { type: string }
+        phone:     { type: string }
+        role:      { type: string, enum: [buyer, seller, both] }
+
+    UserLogin:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:    { type: string }
+        password: { type: string }
+
+    UserUpdate:
+      type: object
+      properties:
+        firstName:  { type: string }
+        lastName:   { type: string }
+        phone:      { type: string }
+        avatarUrl:  { type: string }
+
+    # ── Seller Profile ────────────────────────────────────────────────────────
+
+    SellerProfile:
+      type: object
+      required:
+        - id
+        - userId
+        - sellerType
+        - displayName
+      properties:
+        id:            { type: integer }
+        userId:        { type: integer }
+        sellerType:    { type: string, enum: [dealer, private, certified_dealer] }
+        displayName:   { type: string }
+        businessName:  { type: ["string", "null"] }
+        description:   { type: ["string", "null"] }
+        logoUrl:       { type: ["string", "null"] }
+        phone:         { type: ["string", "null"] }
+        email:         { type: ["string", "null"] }
+        website:       { type: ["string", "null"] }
+        address:       { type: ["string", "null"] }
+        city:          { type: ["string", "null"] }
+        state:         { type: ["string", "null"] }
+        zipCode:       { type: ["string", "null"] }
+        latitude:      { type: ["number", "null"] }
+        longitude:     { type: ["number", "null"] }
+        totalListings: { type: integer }
+        rating:        { type: ["number", "null"] }
+        reviewCount:   { type: integer }
+        offerDelivery: { type: boolean }
+
+    SellerProfileUpdate:
+      type: object
+      properties:
+        displayName:   { type: string }
+        businessName:  { type: string }
+        description:   { type: string }
+        logoUrl:       { type: string }
+        phone:         { type: string }
+        email:         { type: string }
+        website:       { type: string }
+        address:       { type: string }
+        city:          { type: string }
+        state:         { type: string }
+        zipCode:       { type: string }
+        offerDelivery: { type: boolean }
+
+    # ── Buyer Profile ─────────────────────────────────────────────────────────
+
+    BuyerProfile:
+      type: object
+      required:
+        - id
+        - userId
+      properties:
+        id:                 { type: integer }
+        userId:             { type: integer }
+        preferredMakes:     { type: array, items: { type: string } }
+        preferredBodyStyles: { type: array, items: { type: string } }
+        maxPrice:           { type: ["number", "null"] }
+        minYear:            { type: ["integer", "null"] }
+        maxMileage:         { type: ["integer", "null"] }
+        preferredColors:    { type: array, items: { type: string } }
+        fuelType:           { type: ["string", "null"] }
+        transmission:       { type: ["string", "null"] }
+        useLocation:        { type: boolean }
+        zipCode:            { type: ["string", "null"] }
+        searchRadius:       { type: ["integer", "null"] }
+        notifyOnMatch:      { type: boolean }
+
+    BuyerProfileUpdate:
+      type: object
+      properties:
+        preferredMakes:     { type: array, items: { type: string } }
+        preferredBodyStyles: { type: array, items: { type: string } }
+        maxPrice:           { type: number }
+        minYear:            { type: integer }
+        maxMileage:         { type: integer }
+        preferredColors:    { type: array, items: { type: string } }
+        fuelType:           { type: string }
+        transmission:       { type: string }
+        useLocation:        { type: boolean }
+        zipCode:            { type: string }
+        searchRadius:       { type: integer }
+        notifyOnMatch:      { type: boolean }
+
+    # ── Favorites ─────────────────────────────────────────────────────────────
+
+    Favorite:
+      type: object
+      required:
+        - id
+        - userId
+        - carId
+        - createdAt
+      properties:
+        id:        { type: integer }
+        userId:    { type: integer }
+        carId:     { type: integer }
+        createdAt: { type: string, format: date-time }
+
+    FavoriteInput:
+      type: object
+      required:
+        - carId
+      properties:
+        carId: { type: integer }
+
+    # ── Inquiries ─────────────────────────────────────────────────────────────
+
+    Inquiry:
+      type: object
+      required:
+        - id
+        - carId
+        - buyerId
+        - sellerId
+        - message
+        - status
+        - createdAt
+      properties:
+        id:          { type: integer }
+        carId:       { type: integer }
+        buyerId:     { type: integer }
+        sellerId:    { type: integer }
+        message:     { type: string }
+        buyerName:   { type: ["string", "null"] }
+        buyerEmail:  { type: ["string", "null"] }
+        buyerPhone:  { type: ["string", "null"] }
+        carTitle:    { type: ["string", "null"] }
+        status:      { type: string, enum: [pending, replied, closed] }
+        wantsDelivery: { type: boolean }
+        tradeIn:     { type: boolean }
+        financing:   { type: boolean }
+        createdAt:   { type: string, format: date-time }
+
+    InquiryInput:
+      type: object
+      required:
+        - carId
+        - message
+      properties:
+        carId:        { type: integer }
+        message:      { type: string }
+        buyerName:    { type: string }
+        buyerEmail:   { type: string }
+        buyerPhone:   { type: string }
+        wantsDelivery: { type: boolean }
+        tradeIn:      { type: boolean }
+        financing:    { type: boolean }
+
+    # ── Makes & Models ────────────────────────────────────────────────────────
+
+    CarMake:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:           { type: integer }
+        name:         { type: string }
+        logoUrl:      { type: ["string", "null"] }
+        listingCount: { type: integer }
+
+    CarModel:
+      type: object
+      required:
+        - id
+        - makeId
+        - name
+      properties:
+        id:     { type: integer }
+        makeId: { type: integer }
+        name:   { type: string }
+
+    # ── Stats ─────────────────────────────────────────────────────────────────
+
+    MarketplaceSummary:
+      type: object
+      required:
+        - totalListings
+        - totalSellers
+        - totalBuyers
+        - avgPrice
+        - newListingsToday
+      properties:
+        totalListings:    { type: integer }
+        totalSellers:     { type: integer }
+        totalBuyers:      { type: integer }
+        avgPrice:         { type: number }
+        newListingsToday: { type: integer }
+        popularMake:      { type: ["string", "null"] }
+        popularState:     { type: ["string", "null"] }
+
+    StateCount:
+      type: object
+      required:
+        - state
+        - count
+      properties:
+        state:     { type: string }
+        stateCode: { type: string }
+        count:     { type: integer }
+
+    PriceRange:
+      type: object
+      required:
+        - label
+        - min
+        - max
+        - count
+      properties:
+        label: { type: string }
+        min:   { type: number }
+        max:   { type: number }
+        count: { type: integer }
+
+    MakeCount:
+      type: object
+      required:
+        - make
+        - count
+      properties:
+        make:  { type: string }
+        count: { type: integer }
+
+    # ── Search ────────────────────────────────────────────────────────────────
+
+    SearchSuggestion:
+      type: object
+      required:
+        - type
+        - label
+        - value
+      properties:
+        type:  { type: string, enum: [make, model, city, state, zipCode] }
+        label: { type: string }
+        value: { type: string }

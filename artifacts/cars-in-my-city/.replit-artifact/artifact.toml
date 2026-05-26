@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CarsInMyCity"
+version = "1.0.0"
+id = "artifacts/cars-in-my-city"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21842
+
+[services.development]
+run = "pnpm --filter @workspace/cars-in-my-city run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cars-in-my-city", "run", "build" ]
+publicDir = "artifacts/cars-in-my-city/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21842"
+BASE_PATH = "/"

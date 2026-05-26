@@ -1,0 +1,31 @@
+Create a website for locating cars for sale in a specific local area. It's going to be used by people looking to buy a new or used car. Usability and ease of use is crucial. The backend of the website providing the search results will be used by car dealerships, independent sellers, and regular folks looking to sell their car on a marketplace. 
+
+I need the page to be marketing friendly i.e. like an effective landing page that follows the top industry tricks of the trade to maximize usage and data collection. Here are four of the top car search websites on the internet. 
+
+Utilize these sites when designing the site.
+https://www.autotempest.com/ 
+https://www.cargurus.com/ 
+https://www.cars.com/ 
+https://www.carvana.com/ 
+
+This page will need to fall in line with other pages of a similar branding, especially when choosing fonts, colors and other aspects I'll leave up to you to decipher.
+
+Here are the other pages in the "In My City" brand family:
+https://careinmycity.com/
+https://petsinmycity.com/ 
+
+Make sure to take note of the high page count and deep content map of each of the "In My City" pages. The more pages of content you create for CarsInMyCity, the more likely the page will show up in search results and even in ChatGPT results. That's the goal. We want people to be able to find this site whether they are searching on Google or ChatGPT. Include as much content as possible on individual pages relative to car searching. Examples include things to look for when buying a used car, buying new vs used car comparison, pros and cons of local laws in each state when it comes to buying a car, best way to purchase for the cheapest insurance for each US state (utilize these pages when creating with an insurance upsell in mind), features that help decrease insurance costs in each state, tips for getting car salespeople to give you the best deal, hacks to get the cheapest price, and other topics your research considers vital the car buying process. 
+
+Include a search function that features an interactive map of the US with all 50 states selectable. The search functionality needs to go down to the zip code level and every level in between. I want it intuitive, easy and fun to use, and functional. The search results need to focus on the cars themselves. 
+
+Include the ability for a person to create their own profile (which will plug into a backend CRM) and create their perfect car option as part of their profile. Search results can be catered to those selections. Location will be important with those specifications but only if the user decides it is. Many people travel to buy cars so the specifications of the car need to take precedent. 
+
+There will also need to be an ability for sellers to create a profile which will allow them to upload more than one car for sale in a marketplace format. Provide every possible specification and detail that anyone selling a car would look for i.e. pictures, mileage, make, model, year, title status, color, miles per gallon etc and also include more granular details like tire size, engine size, ability to upload maintenance records docs (optional), audio system, leather/cloth, and others your research deems necessary for full transparency. 
+
+The search result needs to look very nice. Utilize the websites provided for aesthetic inspiration. Use a picture-forward approach with most important details so browsing is easy and informative. 
+
+Purchasing a car needs to be easier than using the site. There can be many options in the flow. Utilize the carvana.com website to map out the process best. They are the industry leaders. The only difference is there won't be delivery by default. That can be an option set by the seller. They can choose to deliver the vehicle (optional extra charge if they deem appropriate) or have the buyer submit information to them for further contact. 
+
+Feel free to freestyle the logo for CarsInMyCity. Look to the other "In My City" logos on the sites provided for inspiration. 
+
+Don't forget to include standard terms and conditions, privacy policy, and an affiliate page focused on contacting the site owner for more information.
