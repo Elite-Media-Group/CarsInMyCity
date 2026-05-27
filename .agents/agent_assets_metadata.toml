@@ -1,0 +1,14 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "GdL7Pka_ML2no_qzjNHya"
+uri = "file://og-blog-preview.png"
+type = "image"
+title = "Blog OG Image (1200×630)"
+
+[[outputs]]
+id = "ClCXlM8qtGGNBbKy9mZZJ"
+uri = "file://og-car-preview.png"
+type = "image"
+title = "Car Listing OG Image (1200×630)"

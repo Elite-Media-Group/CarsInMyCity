@@ -9,9 +9,11 @@ import inquiriesRouter from "./inquiries";
 import makesRouter from "./makes";
 import statsRouter from "./stats";
 import searchRouter from "./search";
+import ogRouter from "./og";
 
 const router: IRouter = Router();
 
+router.use(ogRouter);
 router.use(healthRouter);
 router.use(carsRouter);
 router.use(usersRouter);

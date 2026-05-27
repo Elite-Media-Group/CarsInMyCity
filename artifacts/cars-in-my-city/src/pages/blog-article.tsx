@@ -102,7 +102,7 @@ export default function BlogArticle() {
       <SEO
         title={article.title}
         description={article.metaDescription}
-        image={article.img}
+        image={`https://carsinmycity.com/api/og/blog/${article.slug}`}
         type="article"
         canonical={canonicalUrl}
         keywords={article.keywords}

@@ -1,5 +1,6 @@
 import { useRoute } from "wouter";
 import { Layout } from "@/components/layout";
+import { SEO } from "@/components/seo";
 import { useGetCar, useGetRecentCars } from "@workspace/api-client-react";
 import { CarCard } from "@/components/car-card";
 import { Button } from "@/components/ui/button";
@@ -56,8 +57,18 @@ export default function CarDetail() {
   const formattedMileage = new Intl.NumberFormat('en-US').format(car.mileage);
   const mainImage = car.photos && car.photos.length > 0 ? car.photos[0] : "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=1200";
 
+  const seoTitle = `${car.year} ${car.make} ${car.model}${car.trim ? ` ${car.trim}` : ""} — ${formattedPrice}`;
+  const seoDescription = `${car.year} ${car.make} ${car.model} with ${formattedMileage} miles for ${formattedPrice} in ${car.city}, ${car.state}. ${car.condition ? car.condition.charAt(0).toUpperCase() + car.condition.slice(1) : "Used"} • ${car.transmission ?? ""} • ${car.drivetrain ?? ""}. Listed on CarsInMyCity.`;
+
   return (
     <Layout>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        image={`https://carsinmycity.com/api/og/cars/${car.id}`}
+        type="website"
+        canonical={`https://carsinmycity.com/cars/${car.id}`}
+      />
       <div className="bg-muted/30 border-b border-border py-4">
         <div className="container mx-auto px-4 flex items-center text-sm text-muted-foreground gap-2">
           <span>Search</span> <ChevronRight className="h-4 w-4" />
