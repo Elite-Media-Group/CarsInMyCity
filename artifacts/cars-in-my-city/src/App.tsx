@@ -20,6 +20,9 @@ import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
 import { BuyingGuide, SellingGuide } from "@/pages/guides";
 import { Terms, Privacy, Affiliates } from "@/pages/legal";
+import CitiesIndex from "@/pages/cities-index";
+import StateCitiesPage from "@/pages/state-cities-page";
+import CityPage from "@/pages/city-page";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +50,11 @@ function Router() {
       <Route path="/terms" component={Terms} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/affiliates" component={Affiliates} />
+
+      {/* City Pages */}
+      <Route path="/cities" component={CitiesIndex} />
+      <Route path="/cities/:state" component={StateCitiesPage} />
+      <Route path="/cities/:state/:city" component={CityPage} />
 
       <Route component={NotFound} />
     </Switch>

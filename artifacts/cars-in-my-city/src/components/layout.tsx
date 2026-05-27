@@ -30,6 +30,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="/search" className="text-foreground/80 hover:text-foreground transition-colors">Buy</Link>
             <Link href="/sell" className="text-foreground/80 hover:text-foreground transition-colors">Sell</Link>
+            <Link href="/cities" className="text-foreground/80 hover:text-foreground transition-colors">Cities</Link>
             <Link href="/buying-guide" className="text-foreground/80 hover:text-foreground transition-colors">Guides</Link>
             <Link href="/blog" className="text-foreground/80 hover:text-foreground transition-colors">Blog</Link>
           </nav>
@@ -121,6 +122,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 <li><Link href="/search?condition=used" className="hover:text-primary transition-colors">Used Cars</Link></li>
                 <li><Link href="/search?condition=new" className="hover:text-primary transition-colors">New Cars</Link></li>
                 <li><Link href="/search?condition=certified" className="hover:text-primary transition-colors">Certified Pre-Owned</Link></li>
+                <li><Link href="/cities" className="hover:text-primary transition-colors">Browse by City</Link></li>
               </ul>
             </div>
 
