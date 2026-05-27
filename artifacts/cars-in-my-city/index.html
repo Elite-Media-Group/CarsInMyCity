@@ -3,19 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>CarsInMyCity</title>
-    <meta name="description" content="CarsInMyCity — built on Replit. Update this description to reflect the app." />
+    <title>CarsInMyCity — Find Used Cars Near You</title>
+    <meta name="description" content="CarsInMyCity is a hyper-local car marketplace connecting buyers and sellers in their community. Browse 26+ listings by make, model, price, and ZIP code." />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="CarsInMyCity" />
-    <meta property="og:description" content="CarsInMyCity — built on Replit. Update this description to reflect the app." />
+    <meta name="author" content="CarsInMyCity" />
+    <meta name="keywords" content="used cars for sale, buy used car near me, sell my car, local car marketplace, car listings, private party car sale" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="CarsInMyCity" />
+    <meta property="og:title" content="CarsInMyCity — Find Used Cars Near You" />
+    <meta property="og:description" content="Hyper-local car marketplace connecting buyers and sellers in their community. Transparent pricing, no hidden fees." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://carsinmycity.com" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1200" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CarsInMyCity" />
-    <meta name="twitter:description" content="CarsInMyCity — built on Replit. Update this description to reflect the app." />
+    <meta name="twitter:title" content="CarsInMyCity — Find Used Cars Near You" />
+    <meta name="twitter:description" content="Hyper-local car marketplace connecting buyers and sellers in their community. Transparent pricing, no hidden fees." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1200" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://carsinmycity.com" />
+
+    <!-- Schema.org site-level JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CarsInMyCity",
+      "url": "https://carsinmycity.com",
+      "description": "Hyper-local car marketplace connecting buyers and sellers in their community.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://carsinmycity.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CarsInMyCity",
+        "url": "https://carsinmycity.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://carsinmycity.com/favicon.svg"
+        },
+        "sameAs": []
+      }
+    }
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
   </head>
   <body>
     <div id="root"></div>
