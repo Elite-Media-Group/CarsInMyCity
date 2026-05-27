@@ -31,6 +31,7 @@ export function Layout({ children }: { children: ReactNode }) {
             <Link href="/search" className="text-foreground/80 hover:text-foreground transition-colors">Buy</Link>
             <Link href="/sell" className="text-foreground/80 hover:text-foreground transition-colors">Sell</Link>
             <Link href="/buying-guide" className="text-foreground/80 hover:text-foreground transition-colors">Guides</Link>
+            <Link href="/blog" className="text-foreground/80 hover:text-foreground transition-colors">Blog</Link>
           </nav>
 
           <div className="flex items-center gap-4">

@@ -17,6 +17,7 @@ import Login from "@/pages/login";
 import Register from "@/pages/register";
 import About from "@/pages/about";
 import Blog from "@/pages/blog";
+import BlogArticle from "@/pages/blog-article";
 import { BuyingGuide, SellingGuide } from "@/pages/guides";
 import { Terms, Privacy, Affiliates } from "@/pages/legal";
 
@@ -40,6 +41,7 @@ function Router() {
       {/* Content Pages */}
       <Route path="/about" component={About} />
       <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogArticle} />
       <Route path="/buying-guide" component={BuyingGuide} />
       <Route path="/selling-guide" component={SellingGuide} />
       <Route path="/terms" component={Terms} />
