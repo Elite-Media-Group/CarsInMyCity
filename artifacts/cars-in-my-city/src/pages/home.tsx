@@ -4,6 +4,7 @@ import { CarCard } from "@/components/car-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, ShieldCheck, Zap, Handshake } from "lucide-react";
+import { NearMeButton } from "@/components/near-me-button";
 import { useGetRecentCars, useGetFeaturedCars, useGetMarketplaceSummary, useGetTopMakes } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { USMap } from "@/components/us-map";
@@ -72,6 +73,20 @@ export default function Home() {
                   Search Cars
                 </Button>
               </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-4"
+            >
+              <NearMeButton
+                size="lg"
+                variant="outline"
+                className="h-11 rounded-xl px-6 font-semibold text-sm bg-transparent border-white/30 text-white hover:bg-white/10"
+                label="Use My Location Instead"
+              />
             </motion.div>
             
             {summary && (

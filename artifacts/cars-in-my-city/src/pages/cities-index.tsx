@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { getStates } from "@/data/cities";
 import { SEO } from "@/components/seo";
 import { Layout } from "@/components/layout";
+import { NearMeButton } from "@/components/near-me-button";
 import { MapPin, ChevronRight } from "lucide-react";
 
 const US_REGION: Record<string, string> = {
@@ -70,11 +71,17 @@ export default function CitiesIndex() {
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
             Find Used Cars Near You — Browse by City
           </h1>
-          <p className="text-primary-foreground/85 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-primary-foreground/85 text-lg max-w-2xl mx-auto leading-relaxed mb-6">
             CarsInMyCity is built for local car buying. Every city page includes hyper-local
             market insights, climate-specific buying tips, and state regulation guides — so you
             walk into every deal prepared.
           </p>
+          <NearMeButton
+            size="lg"
+            variant="outline"
+            className="bg-transparent border-white/40 text-white hover:bg-white/10 font-semibold"
+            label="Find Cars Near Me"
+          />
         </div>
       </section>
 
