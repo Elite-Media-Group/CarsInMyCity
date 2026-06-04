@@ -42,6 +42,7 @@ export * from './searchSuggestionType';
 export * from './sellerProfile';
 export * from './sellerProfileSellerType';
 export * from './sellerProfileUpdate';
+export * from './sellerProfileUpdateSellerType';
 export * from './stateCount';
 export * from './user';
 export * from './userLogin';

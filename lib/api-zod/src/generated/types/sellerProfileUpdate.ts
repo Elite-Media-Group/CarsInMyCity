@@ -5,6 +5,7 @@
  * CarsInMyCity API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { SellerProfileUpdateSellerType } from './sellerProfileUpdateSellerType';
 
 export interface SellerProfileUpdate {
   displayName?: string;
@@ -19,4 +20,5 @@ export interface SellerProfileUpdate {
   state?: string;
   zipCode?: string;
   offerDelivery?: boolean;
+  sellerType?: SellerProfileUpdateSellerType;
 }

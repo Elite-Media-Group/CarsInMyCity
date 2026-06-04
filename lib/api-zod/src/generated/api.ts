@@ -487,7 +487,8 @@ export const UpdateMySellerProfileBody = zod.object({
   "city": zod.string().optional(),
   "state": zod.string().optional(),
   "zipCode": zod.string().optional(),
-  "offerDelivery": zod.boolean().optional()
+  "offerDelivery": zod.boolean().optional(),
+  "sellerType": zod.enum(['dealer', 'private', 'certified_dealer']).optional()
 })
 
 export const UpdateMySellerProfileResponse = zod.object({

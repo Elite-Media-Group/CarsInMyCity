@@ -283,6 +283,15 @@ export interface SellerProfile {
   offerDelivery?: boolean;
 }
 
+export type SellerProfileUpdateSellerType = typeof SellerProfileUpdateSellerType[keyof typeof SellerProfileUpdateSellerType];
+
+
+export const SellerProfileUpdateSellerType = {
+  dealer: 'dealer',
+  private: 'private',
+  certified_dealer: 'certified_dealer',
+} as const;
+
 export interface SellerProfileUpdate {
   displayName?: string;
   businessName?: string;
@@ -296,6 +305,7 @@ export interface SellerProfileUpdate {
   state?: string;
   zipCode?: string;
   offerDelivery?: boolean;
+  sellerType?: SellerProfileUpdateSellerType;
 }
 
 export interface BuyerProfile {

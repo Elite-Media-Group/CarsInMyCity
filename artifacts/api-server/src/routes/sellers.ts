@@ -39,7 +39,15 @@ router.get("/sellers/me", async (req, res): Promise<void> => {
   const userId = await getCurrentUserId();
   const [profile] = await db.select().from(sellerProfilesTable).where(eq(sellerProfilesTable.userId, userId));
   if (!profile) {
-    res.status(404).json({ error: "Seller profile not found" });
+    const [user] = await db.select().from(usersTable).where(eq(usersTable.id, userId));
+    const displayName = user
+      ? `${user.firstName} ${user.lastName}`.trim() || "My Profile"
+      : "My Profile";
+    const [created] = await db
+      .insert(sellerProfilesTable)
+      .values({ userId, displayName, sellerType: "private" })
+      .returning();
+    res.json(formatProfile(created, 0));
     return;
   }
   const [{ total }] = await db.select({ total: count() }).from(carsTable).where(eq(carsTable.sellerId, userId));
@@ -53,8 +61,30 @@ router.patch("/sellers/me", async (req, res): Promise<void> => {
     return;
   }
   const userId = await getCurrentUserId();
-  const [profile] = await db.update(sellerProfilesTable)
-    .set(parsed.data)
+  const data = parsed.data;
+
+  const updateData: Partial<typeof sellerProfilesTable.$inferInsert> = {
+    displayName: data.displayName,
+    businessName: data.businessName,
+    description: data.description,
+    logoUrl: data.logoUrl,
+    phone: data.phone,
+    email: data.email,
+    website: data.website,
+    address: data.address,
+    city: data.city,
+    state: data.state,
+    zipCode: data.zipCode,
+    offerDelivery: data.offerDelivery,
+  };
+
+  if (data.sellerType) {
+    updateData.sellerType = data.sellerType as "dealer" | "private" | "certified_dealer";
+  }
+
+  const [profile] = await db
+    .update(sellerProfilesTable)
+    .set(updateData)
     .where(eq(sellerProfilesTable.userId, userId))
     .returning();
   if (!profile) {

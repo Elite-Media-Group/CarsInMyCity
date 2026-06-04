@@ -866,6 +866,7 @@ components:
         state:         { type: string }
         zipCode:       { type: string }
         offerDelivery: { type: boolean }
+        sellerType:    { type: string, enum: [dealer, private, certified_dealer] }
 
     # ── Buyer Profile ─────────────────────────────────────────────────────────
 
