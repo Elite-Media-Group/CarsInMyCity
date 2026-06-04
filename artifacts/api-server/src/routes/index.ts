@@ -10,11 +10,13 @@ import makesRouter from "./makes";
 import statsRouter from "./stats";
 import searchRouter from "./search";
 import ogRouter from "./og";
+import uploadsRouter from "./uploads";
 
 const router: IRouter = Router();
 
 router.use(ogRouter);
 router.use(healthRouter);
+router.use(uploadsRouter);
 router.use(carsRouter);
 router.use(usersRouter);
 router.use(sellersRouter);

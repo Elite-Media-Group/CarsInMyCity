@@ -14,11 +14,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { CarCard } from "@/components/car-card";
-import { PlusCircle, Store, User, BadgeCheck } from "lucide-react";
+import { PlusCircle, Store, User, BadgeCheck, Camera, Loader2 } from "lucide-react";
 
 type SellerType = "private" | "dealer" | "certified_dealer";
 
@@ -84,6 +84,8 @@ export default function SellerProfilePage() {
 
   const updateProfile = useUpdateMySellerProfile();
   const { toast } = useToast();
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
   const [formData, setFormData] = useState<SellerProfileUpdate & { sellerType?: SellerType }>({});
 
@@ -127,6 +129,26 @@ export default function SellerProfilePage() {
       </Layout>
     );
   }
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingLogo(true);
+    try {
+      const body = new FormData();
+      body.append("photo", file);
+      const res = await fetch("/api/uploads/profile-photo", { method: "POST", body });
+      if (!res.ok) throw new Error("Upload failed");
+      const { url } = await res.json() as { url: string };
+      setFormData((prev) => ({ ...prev, logoUrl: url }));
+      toast({ title: "Logo uploaded", description: "Your profile photo has been saved." });
+    } catch {
+      toast({ title: "Upload failed", description: "Could not upload the image.", variant: "destructive" });
+    } finally {
+      setUploadingLogo(false);
+      if (logoInputRef.current) logoInputRef.current.value = "";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -219,6 +241,54 @@ export default function SellerProfilePage() {
                   <CardDescription>This information is shown on your public seller page.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
+
+                  {/* Logo / Profile Photo */}
+                  <div className="flex items-center gap-5">
+                    <div className="relative">
+                      {formData.logoUrl ? (
+                        <img
+                          src={formData.logoUrl}
+                          alt="Profile photo"
+                          className="h-20 w-20 rounded-full object-cover border-2 border-border"
+                        />
+                      ) : (
+                        <div className="h-20 w-20 rounded-full bg-muted border-2 border-border flex items-center justify-center text-muted-foreground">
+                          <User className="h-8 w-8" />
+                        </div>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => logoInputRef.current?.click()}
+                        className="absolute bottom-0 right-0 h-7 w-7 bg-primary rounded-full flex items-center justify-center text-white shadow hover:bg-primary/90 transition-colors"
+                      >
+                        {uploadingLogo ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Camera className="h-3.5 w-3.5" />}
+                      </button>
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">Profile Photo</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">JPG or PNG · max 5 MB</p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() => logoInputRef.current?.click()}
+                        disabled={uploadingLogo}
+                      >
+                        {uploadingLogo ? "Uploading…" : "Change Photo"}
+                      </Button>
+                    </div>
+                    <input
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleLogoUpload}
+                    />
+                  </div>
+
+                  <Separator />
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="displayName">Display Name *</Label>
