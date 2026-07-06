@@ -128,7 +128,8 @@ export function Layout({ children }: { children: ReactNode }) {
                 <li><Link href="/search?condition=new" className="hover:text-primary transition-colors">New Cars</Link></li>
                 <li><Link href="/search?condition=certified" className="hover:text-primary transition-colors">Certified Pre-Owned</Link></li>
                 <li><Link href="/cities" className="hover:text-primary transition-colors">Browse by City</Link></li>
-                <li><Link href="/guides" className="hover:text-primary transition-colors">Buying Guide</Link></li>
+                <li><Link href="/guides" className="hover:text-primary transition-colors">All Guides</Link></li>
+                <li><Link href="/buying-guide" className="hover:text-primary transition-colors">Buying Guide</Link></li>
               </ul>
             </div>
 

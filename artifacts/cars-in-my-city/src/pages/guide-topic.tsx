@@ -25,7 +25,7 @@ export default function GuideTopicPage() {
         <div className="container mx-auto px-4 py-32 text-center">
           <h1 className="text-3xl font-bold mb-4">Guide not found</h1>
           <p className="text-muted-foreground mb-8">This guide topic doesn't exist or may have moved.</p>
-          <Link href="/guides"><Button>Back to Guides</Button></Link>
+          <Link href="/buying-guide"><Button>Back to Buying Guide</Button></Link>
         </div>
       </Layout>
     );
@@ -69,7 +69,7 @@ export default function GuideTopicPage() {
 
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap">
-          <Link href="/guides" className="hover:text-primary">Guides</Link>
+          <Link href="/buying-guide" className="hover:text-primary">Buying Guide</Link>
           <ChevronRight className="h-3.5 w-3.5" />
           <span className="text-foreground font-medium">{topic.navLabel}</span>
         </div>
@@ -148,7 +148,7 @@ export default function GuideTopicPage() {
         </div>
 
         <div className="mt-8 flex justify-between items-center flex-wrap gap-4">
-          <Link href="/guides"><Button variant="outline">All Guide Topics</Button></Link>
+          <Link href="/buying-guide"><Button variant="outline">All Guide Topics</Button></Link>
           <Link href="/search"><Button>Browse Cars</Button></Link>
         </div>
       </div>

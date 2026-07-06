@@ -16,7 +16,7 @@ const icons = {
 };
 
 export default function GuidesHub() {
-  const canonicalUrl = "https://carsinmycity.com/guides";
+  const canonicalUrl = "https://carsinmycity.com/buying-guide";
 
   const faqSchema = {
     "@context": "https://schema.org",

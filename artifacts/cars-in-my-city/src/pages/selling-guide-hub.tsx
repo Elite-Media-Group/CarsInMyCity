@@ -152,7 +152,7 @@ export default function SellingGuideHub() {
             <p className="text-sm text-muted-foreground mb-4">
               Check out our step-by-step guide to buying a used car with confidence.
             </p>
-            <Link href="/guides">
+            <Link href="/buying-guide">
               <Button variant="outline" size="sm">View Buying Guide</Button>
             </Link>
           </Card>

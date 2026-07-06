@@ -18,6 +18,7 @@ import Register from "@/pages/register";
 import About from "@/pages/about";
 import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
+import GuidesLandingPage from "@/pages/guides-landing";
 import GuidesHub from "@/pages/guides-hub";
 import GuideTopicPage from "@/pages/guide-topic";
 import SellingGuideHub from "@/pages/selling-guide-hub";
@@ -48,7 +49,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogArticle} />
-      <Route path="/guides" component={GuidesHub} />
+      <Route path="/guides" component={GuidesLandingPage} />
       <Route path="/guides/:slug" component={GuideTopicPage} />
       <Route path="/buying-guide" component={GuidesHub} />
       <Route path="/selling-guide" component={SellingGuideHub} />
