@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import { useGetMe } from "@workspace/api-client-react";
-import { CarFront, MapPin, User, LogOut, Heart, MessageSquare, PlusCircle } from "lucide-react";
+import { MapPin, User, LogOut, Heart, MessageSquare, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoUrl from "@assets/carsinmycity_1783358675675.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,11 +21,8 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-[100dvh] flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-primary">
-            <CarFront className="h-6 w-6" />
-            <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
-              Cars<span className="text-accent">InMyCity</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <img src={logoUrl} alt="Cars In My City" className="h-11 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -105,11 +103,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <Link href="/" className="flex items-center gap-2 text-primary opacity-80 hover:opacity-100 transition-opacity">
-                <CarFront className="h-6 w-6" />
-                <span className="font-bold text-xl tracking-tight">
-                  Cars<span className="text-accent">InMyCity</span>
-                </span>
+              <Link href="/" className="flex items-center opacity-90 hover:opacity-100 transition-opacity">
+                <img src={logoUrl} alt="Cars In My City" className="h-11 w-auto" />
               </Link>
               <p className="text-sm leading-relaxed">
                 The hyper-local car marketplace connecting buyers and sellers in their community. Fast, transparent, and built for you.
