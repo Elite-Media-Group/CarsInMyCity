@@ -113,7 +113,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   src={logoUrl}
                   alt="Cars In My City"
                   className="w-auto"
-                  style={{ height: "clamp(4rem, 7vw + 2rem, 5.5rem)" }}
+                  style={{ height: "clamp(5.5rem, 9vw + 2.5rem, 7.5rem)" }}
                 />
               </Link>
               <p className="text-sm leading-relaxed">
