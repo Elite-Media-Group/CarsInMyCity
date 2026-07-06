@@ -20,13 +20,13 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-[100dvh] flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 h-24 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center shrink-0">
             <img
               src={logoUrl}
               alt="Cars In My City"
               className="w-auto"
-              style={{ height: "clamp(3.25rem, 6vw + 1.5rem, 4.5rem)" }}
+              style={{ height: "clamp(5.5rem, 9vw + 2.5rem, 7.5rem)" }}
             />
           </Link>
 
