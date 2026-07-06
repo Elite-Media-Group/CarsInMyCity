@@ -19,35 +19,6 @@ export default function GenericContentPage({ title, children }: { title: string,
   );
 }
 
-export function BuyingGuide() {
-  return (
-    <GenericContentPage title="The Ultimate Used Car Buying Guide">
-      <p className="lead text-xl text-foreground font-medium">Buying a car is one of the largest purchases you'll make. Doing it right takes patience, research, and a bit of know-how. Use this guide to navigate the local market safely.</p>
-      
-      <h2>1. Set Your Budget</h2>
-      <p>Before you even look at a listing, determine how much you can afford. The rule of thumb: your total car payment (including insurance and maintenance) shouldn't exceed 15% of your monthly take-home pay.</p>
-      
-      <h2>2. Choose the Right Car for Your Needs</h2>
-      <p>It's easy to fall in love with a sporty coupe, but if you have three kids, you need a different vehicle. Consider your daily commute, cargo needs, and weekend activities.</p>
-
-      <h2>3. The Inspection Checklist</h2>
-      <p>Never buy a used car without checking these crucial areas:</p>
-      <ul>
-        <li><strong>Exterior:</strong> Check for uneven panel gaps, mismatched paint, and rust.</li>
-        <li><strong>Tires:</strong> Look for uneven wear, which could indicate alignment issues.</li>
-        <li><strong>Under the Hood:</strong> Check oil level and color (shouldn't be milky), look for leaks, and inspect belts.</li>
-        <li><strong>Interior:</strong> Check all electronics, air conditioning, and look for water damage signs.</li>
-      </ul>
-
-      <h2>4. The Test Drive</h2>
-      <p>Drive the car on both local roads and the highway. Listen for strange noises, feel how the transmission shifts, and test the brakes firmly in a safe area.</p>
-
-      <h2>5. The Pre-Purchase Inspection (PPI)</h2>
-      <p>For private party sales especially, we strongly recommend spending $100-$200 to have an independent mechanic inspect the vehicle before you buy it.</p>
-    </GenericContentPage>
-  );
-}
-
 export function SellingGuide() {
   return (
     <GenericContentPage title="How to Sell Your Car Locally">

@@ -18,7 +18,9 @@ import Register from "@/pages/register";
 import About from "@/pages/about";
 import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
-import { BuyingGuide, SellingGuide } from "@/pages/guides";
+import { SellingGuide } from "@/pages/guides";
+import GuidesHub from "@/pages/guides-hub";
+import GuideTopicPage from "@/pages/guide-topic";
 import { Terms, Privacy, Affiliates } from "@/pages/legal";
 import CitiesIndex from "@/pages/cities-index";
 import StateCitiesPage from "@/pages/state-cities-page";
@@ -45,7 +47,9 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogArticle} />
-      <Route path="/buying-guide" component={BuyingGuide} />
+      <Route path="/guides" component={GuidesHub} />
+      <Route path="/guides/:slug" component={GuideTopicPage} />
+      <Route path="/buying-guide" component={GuidesHub} />
       <Route path="/selling-guide" component={SellingGuide} />
       <Route path="/terms" component={Terms} />
       <Route path="/privacy" component={Privacy} />
