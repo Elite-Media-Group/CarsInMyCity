@@ -4,7 +4,8 @@ import { SEO } from "@/components/seo";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { buyingGuideTopics } from "./guide-data";
-import { Wallet, Car, ClipboardCheck, Gauge, ShieldCheck, ArrowRight, HelpCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { Wallet, Car, ClipboardCheck, Gauge, ShieldCheck, ArrowRight, HelpCircle, BookOpen } from "lucide-react";
 
 const icons = {
   wallet: Wallet,
@@ -40,20 +41,79 @@ export default function GuidesHub() {
         jsonLd={faqSchema}
       />
 
-      <div className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-16 md:py-20 max-w-5xl text-center">
-          <span className="inline-block rounded-full bg-white/10 px-4 py-1 text-sm font-semibold text-accent mb-4">
+      <section className="relative bg-primary pt-20 pb-24 md:pt-28 md:pb-32 overflow-hidden text-primary-foreground">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=2000"
+            alt=""
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/70" />
+          <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+          <div className="absolute -bottom-32 -left-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10 max-w-5xl text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 ring-1 ring-white/20 px-4 py-1.5 text-sm font-semibold text-accent mb-6"
+          >
+            <BookOpen className="h-4 w-4" />
             Buyer Resources
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
-            The Complete Used Car Buying Guide
-          </h1>
-          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 }}
+            className="text-4xl md:text-6xl font-bold mb-5 leading-tight"
+          >
+            The Complete Used Car <br className="hidden sm:block" />
+            <span className="text-accent">Buying Guide</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-9"
+          >
             Five essential steps to buying a used car with confidence — from setting a realistic
             budget to getting a professional inspection before you sign anything.
-          </p>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="flex flex-wrap items-center justify-center gap-2.5"
+          >
+            {buyingGuideTopics.map((topic) => {
+              const Icon = icons[topic.icon];
+              return (
+                <a
+                  key={topic.slug}
+                  href={`#${topic.slug}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 ring-1 ring-white/15 px-4 py-2 text-sm font-medium text-white transition-colors"
+                >
+                  <Icon className="h-3.5 w-3.5 text-accent" />
+                  {topic.navLabel}
+                </a>
+              );
+            })}
+          </motion.div>
         </div>
-      </div>
+
+        <svg
+          className="absolute bottom-0 left-0 w-full text-background"
+          viewBox="0 0 1440 60"
+          fill="currentColor"
+          preserveAspectRatio="none"
+        >
+          <path d="M0,32 C240,60 480,60 720,40 C960,20 1200,4 1440,24 L1440,60 L0,60 Z" />
+        </svg>
+      </section>
 
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-5xl">
         <div className="grid gap-5 sm:grid-cols-2">
@@ -61,7 +121,7 @@ export default function GuidesHub() {
             const Icon = icons[topic.icon];
             return (
               <Link key={topic.slug} href={`/guides/${topic.slug}`}>
-                <Card className="group h-full p-6 cursor-pointer border-border hover:border-primary hover:shadow-lg transition-all">
+                <Card id={topic.slug} className="group h-full p-6 cursor-pointer border-border hover:border-primary hover:shadow-lg transition-all scroll-mt-24">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-6 w-6" />
