@@ -30,7 +30,7 @@ export function Layout({ children }: { children: ReactNode }) {
             />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-6 text-base font-bold">
             <Link href="/search" className="text-foreground/80 hover:text-foreground transition-colors">Buy</Link>
             <Link href="/sell" className="text-foreground/80 hover:text-foreground transition-colors">Sell</Link>
             <Link href="/cities" className="text-foreground/80 hover:text-foreground transition-colors">Cities</Link>
@@ -42,7 +42,7 @@ export function Layout({ children }: { children: ReactNode }) {
             {user ? (
               <>
                 <Link href="/list-car" className="hidden sm:inline-flex">
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button size="sm" className="gap-2 bg-[#4A7DC7] hover:bg-[#3D6BB0] text-white font-bold">
                     <PlusCircle className="h-4 w-4" /> List a Car
                   </Button>
                 </Link>
