@@ -17,6 +17,290 @@ export interface GuideTopic {
   faqs: { question: string; answer: string }[];
 }
 
+export interface SellingGuideTopic {
+  slug: string;
+  number: number;
+  icon: "sparkles" | "camera" | "tag" | "file-text" | "handshake";
+  navLabel: string;
+  question: string;
+  shortAnswer: string;
+  metaDescription: string;
+  keywords: string[];
+  sections: GuideSection[];
+  faqs: { question: string; answer: string }[];
+}
+
+export const sellingGuideTopics: SellingGuideTopic[] = [
+  {
+    slug: "prep-the-car",
+    number: 1,
+    icon: "sparkles",
+    navLabel: "Prep the Car",
+    question: "How should you prep your car before selling it?",
+    shortAnswer:
+      "A clean, well-presented car sells faster and for more money because buyers read cleanliness as a signal of good maintenance. Invest in a professional detail (or a thorough weekend clean) and fix cheap cosmetic issues before you list — every dollar spent here typically returns more in the final sale price.",
+    metaDescription:
+      "How to prep your car before selling it privately: detailing tips, which cheap cosmetic fixes are worth doing, and what to gather before you list.",
+    keywords: ["how to prep a car for sale", "detail car before selling", "sell my car checklist", "car selling prep"],
+    sections: [
+      {
+        heading: "Detail it like you mean it",
+        body: [
+          "A professional detail ($100-$250 depending on your area) typically pays for itself many times over in a faster sale and a higher final price. If you're doing it yourself, don't stop at a quick vacuum — shampoo the carpets and seats, clean the headliner, degrease the engine bay, and clay-bar and wax the paint so it photographs well.",
+        ],
+      },
+      {
+        heading: "Fix the cheap, obvious stuff",
+        body: [
+          "Buyers fixate on small, visible flaws even when they don't affect the car mechanically — a burnt-out taillight bulb or a cracked wiper blade can make a buyer wonder what else is neglected. Fix anything under about $50 before listing: bulbs, wipers, floor mats, minor touch-up paint on chips.",
+        ],
+      },
+      {
+        heading: "Gather your paperwork early",
+        body: [
+          "Have your title, maintenance records, and a recent vehicle history report ready before you list. Buyers who see organized documentation move faster and negotiate less aggressively, because it signals a well-cared-for car with nothing to hide.",
+        ],
+        bullets: [
+          "Clean, physical title (or loan payoff information if still financed)",
+          "Maintenance records — oil changes, tires, major repairs",
+          "A vehicle history report (Carfax/AutoCheck) you can share proactively",
+          "Current registration and, if applicable, smog/emissions certificate",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is it worth getting a car professionally detailed before selling it?",
+        answer:
+          "Yes, in almost every case. A $100-$250 professional detail typically returns more than its cost through a faster sale and a higher final price, since buyers strongly associate a clean car with a well-maintained one.",
+      },
+      {
+        question: "What small repairs should I make before selling my car?",
+        answer:
+          "Fix anything cheap and visible — burnt-out bulbs, cracked wiper blades, minor paint chips, worn floor mats. These small details disproportionately affect a buyer's first impression relative to their actual repair cost.",
+      },
+      {
+        question: "What documents do I need before listing my car for sale?",
+        answer:
+          "Have your clean title (or loan payoff details), maintenance records, a vehicle history report, and current registration ready. Sharing these proactively builds buyer trust and speeds up the sale.",
+      },
+    ],
+  },
+  {
+    slug: "take-great-photos",
+    number: 2,
+    icon: "camera",
+    navLabel: "Take Great Photos",
+    question: "What makes a great car listing photo?",
+    shortAnswer:
+      "Great listing photos are the single biggest factor in getting clicks on your ad. Shoot during golden hour (just after sunrise or before sunset) in a clean, uncluttered location, and capture every angle a buyer would want to see — including honest shots of any flaws.",
+    metaDescription:
+      "How to take car listing photos that get more clicks: best lighting, must-have angles and shots, and why photographing flaws honestly actually helps you sell faster.",
+    keywords: ["car listing photos", "how to photograph a car for sale", "sell car photo tips", "best car sale pictures"],
+    sections: [
+      {
+        heading: "Lighting and location matter more than your camera",
+        body: [
+          "You don't need a professional camera — a modern phone is plenty. What matters is light: shoot during 'golden hour,' just after sunrise or before sunset, when soft light eliminates harsh shadows and makes paint look its best. Choose a clean, uncluttered backdrop — a quiet street or empty parking lot beats your driveway full of trash cans.",
+        ],
+      },
+      {
+        heading: "The shot list every listing needs",
+        body: ["Buyers scroll past listings with only 2-3 photos. Aim for at least 12-15 covering:"],
+        bullets: [
+          "3/4 angle shots of the front and rear (the most flattering angle for most cars)",
+          "Straight-on shots of all four sides",
+          "Interior dashboard, wide shot showing the full cabin",
+          "Front seats and rear seats separately",
+          "Odometer showing current, accurate mileage",
+          "Trunk/cargo area",
+          "Any major flaws — honesty here saves everyone time later",
+        ],
+      },
+      {
+        heading: "Small details that build trust",
+        body: [
+          "Include a photo of the tire tread depth and the engine bay — buyers specifically look for these because sellers often skip them. Wipe down the interior and remove all personal items before shooting; a car full of clutter photographs as poorly maintained even if it isn't.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What time of day is best for taking car sale photos?",
+        answer:
+          "Golden hour — shortly after sunrise or before sunset — produces the most flattering light, softening shadows and making the paint and body lines look their best without harsh glare.",
+      },
+      {
+        question: "How many photos should I include in a car listing?",
+        answer:
+          "Aim for 12-15 photos covering all exterior angles, the full interior, the odometer, the engine bay, and any existing flaws. Listings with more thorough photos consistently get more serious inquiries.",
+      },
+      {
+        question: "Should I photograph damage or flaws on my car?",
+        answer:
+          "Yes. Photographing flaws honestly upfront filters out buyers who wouldn't be interested anyway and builds trust with serious buyers, which leads to faster, smoother transactions with fewer last-minute renegotiations.",
+      },
+    ],
+  },
+  {
+    slug: "price-it-right",
+    number: 3,
+    icon: "tag",
+    navLabel: "Price It Right",
+    question: "How do you price a car to sell quickly and fairly?",
+    shortAnswer:
+      "Check similar, recently sold listings in your area — not just national averages — and price slightly above your absolute bottom line to leave room for negotiation. Pricing too high stalls your listing for weeks; pricing too low leaves money on the table.",
+    metaDescription:
+      "How to price your car for a fast, fair sale using local market comparisons, negotiation math, and signals that tell you when to adjust your asking price.",
+    keywords: ["how to price a car for sale", "car pricing guide", "sell car fast pricing", "used car listing price"],
+    sections: [
+      {
+        heading: "Use local, real data — not just national tools",
+        body: [
+          "Kelley Blue Book and Edmunds are a good starting point, but they reflect national averages, not what buyers in your specific area are actually paying right now. Cross-reference with active and recently sold listings on CarsInMyCity and other local marketplaces for your exact make, model, year, mileage, and trim.",
+        ],
+      },
+      {
+        heading: "Leave room to negotiate — but not too much",
+        body: [
+          "Price about 5-8% above your true bottom line. Buyers expect to negotiate a private-party sale, and a small buffer accommodates that without making your listing look overpriced compared to similar cars. Pricing 15-20% above market to 'leave room' almost always backfires — it just gets your listing scrolled past.",
+        ],
+      },
+      {
+        heading: "Read the signals and adjust",
+        body: [
+          "If you get zero inquiries within the first week, your price is too high relative to the market — drop it. If you're getting a flood of lowball offers well below asking, your price is roughly right and you should hold firm rather than panic-dropping the price further.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How do I find the right price for my used car?",
+        answer:
+          "Cross-reference Kelley Blue Book and Edmunds with real, recently sold local listings for your exact make, model, year, mileage, and trim. Local sold data is more accurate than national tools alone.",
+      },
+      {
+        question: "Should I price my car higher to leave room for negotiation?",
+        answer:
+          "A modest buffer of 5-8% above your bottom line is reasonable. Pricing 15-20% higher to 'leave room' usually backfires by making your listing look overpriced next to comparable cars.",
+      },
+      {
+        question: "What does it mean if no one is inquiring about my car listing?",
+        answer:
+          "Zero inquiries after about a week is a strong signal your price is too high for the local market. Lower it rather than waiting — the longer a listing sits, the more buyers assume something is wrong with the car.",
+      },
+    ],
+  },
+  {
+    slug: "write-a-detailed-description",
+    number: 4,
+    icon: "file-text",
+    navLabel: "Write a Description",
+    question: "What should you include in a car listing description?",
+    shortAnswer:
+      "A strong listing description includes the car's ownership and maintenance history, recent major repairs, an honest reason for selling, and full transparency about any known issues. Specificity and honesty build buyer trust and reduce time-wasting inquiries.",
+    metaDescription:
+      "How to write a car listing description that attracts serious buyers: what history and details to include, how much detail is too much, and how honesty speeds up the sale.",
+    keywords: ["car listing description tips", "how to write a car ad", "sell car description example", "private car sale listing"],
+    sections: [
+      {
+        heading: "Lead with the facts buyers actually search for",
+        body: [
+          "Open with the essentials: year, make, model, trim, mileage, and transmission type. Buyers scan for these first, and clearly stating them upfront (rather than making buyers dig through photos) keeps unqualified inquiries to a minimum.",
+        ],
+      },
+      {
+        heading: "Include ownership and maintenance history",
+        body: [
+          "Mention how long you've owned the car, whether you're the original owner, and any major maintenance recently performed — new tires, brakes, timing belt, etc. Specific details ('replaced all four tires in March 2026') are far more credible and persuasive than vague claims like 'well maintained.'",
+        ],
+      },
+      {
+        heading: "Be transparent about known issues and your reason for selling",
+        body: [
+          "State your honest reason for selling (upgrading, moving, downsizing) — vague or evasive answers make buyers suspicious. Disclose any known mechanical issues or cosmetic flaws directly in the description rather than waiting for the buyer to discover them in person; it builds trust and dramatically reduces wasted showings.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What information should a car listing description include?",
+        answer:
+          "Include year, make, model, trim, mileage, transmission, ownership history, recent major maintenance, your reason for selling, and honest disclosure of any known issues.",
+      },
+      {
+        question: "Should I disclose problems with my car in the listing?",
+        answer:
+          "Yes. Disclosing known issues upfront filters out buyers who wouldn't proceed anyway and builds trust with serious ones, which leads to fewer wasted showings and smoother negotiations.",
+      },
+      {
+        question: "Does saying why I'm selling my car matter to buyers?",
+        answer:
+          "Yes. A clear, honest reason for selling (upgrading, relocating, downsizing) reassures buyers that you're not hiding a problem with the car, while vague or evasive answers tend to raise suspicion.",
+      },
+    ],
+  },
+  {
+    slug: "safe-transactions",
+    number: 5,
+    icon: "handshake",
+    navLabel: "Safe Transactions",
+    question: "How do you complete a car sale safely?",
+    shortAnswer:
+      "Always meet in a public, well-lit location — a police station parking lot is ideal — and never accept a personal check. Cash or a cashier's check verified at the buyer's bank during business hours is the safest way to complete a private car sale.",
+    metaDescription:
+      "How to safely complete a private car sale: where to meet buyers, which payment methods to accept, and how to transfer the title without exposing yourself to fraud.",
+    keywords: ["safe car selling tips", "how to sell a car safely", "car sale payment safety", "avoid car selling scams"],
+    sections: [
+      {
+        heading: "Meet in a safe, public place",
+        body: [
+          "Arrange to meet buyers in a public, well-lit, and ideally monitored location. Many police departments offer designated 'safe exchange zones' with security cameras specifically for transactions like this — using one costs nothing and adds real protection for both parties.",
+        ],
+      },
+      {
+        heading: "Only accept payment you can verify on the spot",
+        body: [
+          "Never accept a personal check — they're the most common tool used in car sale scams and can bounce days after the buyer has already driven away. Cash is safest for smaller amounts. For larger amounts, a cashier's check verified in person at the issuing bank during business hours (call the bank directly, don't just look at the check) is the standard safe method.",
+        ],
+        bullets: [
+          "Cash — count it together before handing over keys",
+          "Cashier's check — verify directly with the issuing bank, in person, during business hours",
+          "Bank-to-bank wire transfer — confirm funds have actually cleared before releasing the car",
+          "Never: personal checks, money orders from unfamiliar buyers, or 'overpayment' refund requests",
+        ],
+      },
+      {
+        heading: "Handle the paperwork correctly",
+        body: [
+          "Sign the title over to the buyer, provide a bill of sale with both parties' signatures, the sale price, and the date, and remove your license plates if your state requires it. Notify your state's DMV of the sale (many states have an online 'release of liability' form) to protect yourself from tickets or liability after the sale.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Where is the safest place to meet a buyer for a car sale?",
+        answer:
+          "A public, well-lit location is best — many police departments offer a designated safe exchange zone with security cameras specifically for transactions like private car sales, which costs nothing to use.",
+      },
+      {
+        question: "What is the safest way to accept payment for a used car?",
+        answer:
+          "Cash (counted together on the spot) or a cashier's check verified directly with the issuing bank in person during business hours are the safest methods. Never accept a personal check.",
+      },
+      {
+        question: "Do I need to notify the DMV after selling my car?",
+        answer:
+          "Yes, in most states. Filing a release of liability (often available online) after the sale protects you from tickets, tolls, or other liability the new owner may incur after the sale but before they register the title in their name.",
+      },
+    ],
+  },
+];
+
+export function getSellingGuideTopic(slug: string): SellingGuideTopic | undefined {
+  return sellingGuideTopics.find((t) => t.slug === slug);
+}
+
 export const buyingGuideTopics: GuideTopic[] = [
   {
     slug: "car-buying-budget",
