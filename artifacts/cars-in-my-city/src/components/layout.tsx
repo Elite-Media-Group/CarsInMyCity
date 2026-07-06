@@ -21,8 +21,13 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-[100dvh] flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <img src={logoUrl} alt="Cars In My City" className="h-11 w-auto" />
+          <Link href="/" className="flex items-center shrink-0">
+            <img
+              src={logoUrl}
+              alt="Cars In My City"
+              className="w-auto"
+              style={{ height: "clamp(2rem, 4vw + 1rem, 2.75rem)" }}
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -104,7 +109,12 @@ export function Layout({ children }: { children: ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <Link href="/" className="flex items-center opacity-90 hover:opacity-100 transition-opacity">
-                <img src={logoUrl} alt="Cars In My City" className="h-11 w-auto" />
+                <img
+                  src={logoUrl}
+                  alt="Cars In My City"
+                  className="w-auto"
+                  style={{ height: "clamp(2rem, 4vw + 1rem, 2.75rem)" }}
+                />
               </Link>
               <p className="text-sm leading-relaxed">
                 The hyper-local car marketplace connecting buyers and sellers in their community. Fast, transparent, and built for you.
