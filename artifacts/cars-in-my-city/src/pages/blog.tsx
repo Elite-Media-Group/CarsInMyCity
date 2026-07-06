@@ -8,13 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Clock, Calendar, ArrowRight, Search, X } from "lucide-react";
 import { articles } from "./blog-data";
 
-const categories = ["All", "Buying", "Selling", "Guides", "Finance"];
+const categories = ["All", "Buying", "Selling", "Guides", "Finance", "Insurance"];
 
 const categoryColors: Record<string, string> = {
   Buying: "bg-primary/10 text-primary",
   Selling: "bg-amber-50 text-amber-700",
   Guides: "bg-emerald-50 text-emerald-700",
   Finance: "bg-purple-50 text-purple-700",
+  Insurance: "bg-rose-50 text-rose-700",
 };
 
 const blogJsonLd = {

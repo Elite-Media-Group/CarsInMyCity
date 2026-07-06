@@ -19,6 +19,7 @@ const categoryColors: Record<string, string> = {
   Selling: "bg-amber-50 text-amber-700",
   Guides: "bg-emerald-50 text-emerald-700",
   Finance: "bg-purple-50 text-purple-700",
+  Insurance: "bg-rose-50 text-rose-700",
 };
 
 const AUTHOR = "CarsInMyCity Editorial Team";

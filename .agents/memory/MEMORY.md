@@ -1,0 +1,1 @@
+- [Blog category additions](blog-category-additions.md) — adding a new blog category requires syncing categoryColors in both blog.tsx AND blog-article.tsx (duplicated map).
