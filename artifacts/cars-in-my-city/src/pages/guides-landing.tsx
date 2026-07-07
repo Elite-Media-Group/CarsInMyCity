@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { buyingGuideTopics, sellingGuideTopics } from "./guide-data";
+import { buyingGuideTopics, sellingGuideTopics, insuranceGuideTopics } from "./guide-data";
 import { motion } from "framer-motion";
 import {
   Wallet,
@@ -19,6 +19,7 @@ import {
   ArrowRight,
   BookOpen,
   GraduationCap,
+  ShieldAlert,
 } from "lucide-react";
 
 const buyIcons = {
@@ -108,9 +109,9 @@ export default function GuidesLandingPage() {
             transition={{ delay: 0.1 }}
             className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-9"
           >
-            Ten in-depth, expert-built guides — five for buyers, five for sellers — covering every
-            step of a local car transaction, from budgeting and inspections to pricing and safe
-            handoffs.
+            Twenty expert-built guides — ten for buyers (including 10 insurance guides), five for
+            sellers — covering every step of a local car transaction, from budgeting to safe
+            handoffs and everything in between.
           </motion.p>
 
           <motion.div
@@ -154,16 +155,20 @@ export default function GuidesLandingPage() {
               <BookOpen className="h-7 w-7" />
             </div>
             <span className="text-xs font-bold uppercase tracking-wide text-primary mb-2">
-              For Buyers · 5 Guides
+              For Buyers · 15 Guides
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
               The Complete Used Car Buying Guide
             </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-muted-foreground mb-5 leading-relaxed">
               From setting a realistic budget to walking away confident after a professional
-              inspection — everything you need to buy the right car at the right price.
+              inspection — plus ten insurance guides so you're covered before and after the sale.
             </p>
-            <ul className="space-y-2.5 mb-8">
+
+            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-2">
+              5-Step Buying Guide
+            </p>
+            <ul className="space-y-2 mb-5">
               {buyingGuideTopics.map((topic) => {
                 const Icon = buyIcons[topic.icon];
                 return (
@@ -179,6 +184,27 @@ export default function GuidesLandingPage() {
                   </li>
                 );
               })}
+            </ul>
+
+            <div className="flex items-center gap-1.5 mb-2">
+              <ShieldAlert className="h-3.5 w-3.5 text-rose-500" />
+              <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
+                Insurance Guides (10)
+              </p>
+            </div>
+            <ul className="space-y-2 mb-8">
+              {insuranceGuideTopics.map((topic) => (
+                <li key={topic.slug}>
+                  <Link
+                    href={`/buying-guide/insurance/${topic.slug}`}
+                    className="group flex items-center gap-2.5 text-sm font-medium text-foreground/80 hover:text-rose-600 transition-colors"
+                  >
+                    <ShieldAlert className="h-4 w-4 text-rose-400 shrink-0" />
+                    {topic.navLabel}
+                    <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
             </ul>
             <div className="mt-auto">
               <Link href="/buying-guide">

@@ -21,6 +21,7 @@ import BlogArticle from "@/pages/blog-article";
 import GuidesLandingPage from "@/pages/guides-landing";
 import GuidesHub from "@/pages/guides-hub";
 import GuideTopicPage from "@/pages/guide-topic";
+import InsuranceGuideTopicPage from "@/pages/insurance-guide-topic";
 import SellingGuideHub from "@/pages/selling-guide-hub";
 import SellingGuideTopicPage from "@/pages/selling-guide-topic";
 import { Terms, Privacy, Affiliates } from "@/pages/legal";
@@ -52,6 +53,7 @@ function Router() {
       <Route path="/guides" component={GuidesLandingPage} />
       <Route path="/guides/:slug" component={GuideTopicPage} />
       <Route path="/buying-guide" component={GuidesHub} />
+      <Route path="/buying-guide/insurance/:slug" component={InsuranceGuideTopicPage} />
       <Route path="/selling-guide" component={SellingGuideHub} />
       <Route path="/selling-guide/:slug" component={SellingGuideTopicPage} />
       <Route path="/terms" component={Terms} />

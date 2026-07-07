@@ -573,3 +573,110 @@ export const buyingGuideTopics: GuideTopic[] = [
 export function getGuideTopic(slug: string): GuideTopic | undefined {
   return buyingGuideTopics.find((t) => t.slug === slug);
 }
+
+export type InsuranceIcon =
+  | "graduation-cap"
+  | "car-front"
+  | "wrench"
+  | "file-check"
+  | "alert-triangle"
+  | "scale"
+  | "shield"
+  | "list-x"
+  | "gauge"
+  | "layers";
+
+export interface InsuranceGuideTopic {
+  slug: string;
+  number: number;
+  navLabel: string;
+  icon: InsuranceIcon;
+  excerpt: string;
+}
+
+export const insuranceGuideTopics: InsuranceGuideTopic[] = [
+  {
+    slug: "best-car-insurance-for-first-time-drivers",
+    number: 1,
+    navLabel: "Insurance for New Drivers",
+    icon: "graduation-cap",
+    excerpt:
+      "First-time drivers pay the highest insurance rates of any group. Here's how to find real coverage without overpaying — and which discounts actually move the needle.",
+  },
+  {
+    slug: "car-insurance-for-used-cars",
+    number: 2,
+    navLabel: "Insuring a Used Car",
+    icon: "car-front",
+    excerpt:
+      "Insuring a used car isn't the same math as insuring a new one. Here's how to figure out exactly which coverages are worth paying for based on your car's actual value.",
+  },
+  {
+    slug: "how-to-choose-insurance-for-a-car-that-needs-repairs",
+    number: 3,
+    navLabel: "Insuring a Damaged Car",
+    icon: "wrench",
+    excerpt:
+      "Insuring a car with known mechanical issues or existing damage comes with its own rules. Here's what insurers actually look at, and how to avoid a denied claim later.",
+  },
+  {
+    slug: "extended-warranty-pros-and-cons",
+    number: 4,
+    navLabel: "Extended Warranties",
+    icon: "file-check",
+    excerpt:
+      "Extended warranties are one of the most upsold products in the car-buying process. Here's an honest breakdown of when they pay off and when they're just profit for the dealer.",
+  },
+  {
+    slug: "what-to-do-after-a-motor-vehicle-accident",
+    number: 5,
+    navLabel: "Steps After an Accident",
+    icon: "alert-triangle",
+    excerpt:
+      "The first 30 minutes after a car accident shape everything that follows — your safety, your claim, and your legal position. Here's the exact order of steps to take.",
+  },
+  {
+    slug: "should-you-hire-a-lawyer-after-a-car-accident",
+    number: 6,
+    navLabel: "Do You Need a Lawyer?",
+    icon: "scale",
+    excerpt:
+      "Not every fender-bender needs an attorney — but some situations absolutely do. Here's how to tell the difference before you talk to an insurance adjuster.",
+  },
+  {
+    slug: "auto-insurance-best-practices-after-an-accident",
+    number: 7,
+    navLabel: "Insurance After an Accident",
+    icon: "shield",
+    excerpt:
+      "How you handle your insurance claim after an accident directly affects your payout and your future premiums. These are the habits that protect both.",
+  },
+  {
+    slug: "car-insurance-shopping-mistakes-to-avoid",
+    number: 8,
+    navLabel: "Shopping Mistakes to Avoid",
+    icon: "list-x",
+    excerpt:
+      "Shopping for car insurance seems simple until a few common mistakes quietly cost you hundreds of dollars a year. Here's what to avoid.",
+  },
+  {
+    slug: "how-much-car-insurance-coverage-do-you-need",
+    number: 9,
+    navLabel: "How Much Coverage You Need",
+    icon: "gauge",
+    excerpt:
+      "State minimums are almost never enough. Here's a practical framework for figuring out the right liability limits and coverage types for your actual financial situation.",
+  },
+  {
+    slug: "gap-insurance-explained",
+    number: 10,
+    navLabel: "Gap Insurance Explained",
+    icon: "layers",
+    excerpt:
+      "If your car were totaled tomorrow, would your insurance payout actually cover what you still owe on the loan? For a lot of new car buyers, the answer is no.",
+  },
+];
+
+export function getInsuranceGuideTopic(slug: string): InsuranceGuideTopic | undefined {
+  return insuranceGuideTopics.find((t) => t.slug === slug);
+}
