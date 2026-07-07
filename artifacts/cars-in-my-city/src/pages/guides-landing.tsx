@@ -56,7 +56,7 @@ export default function GuidesLandingPage() {
   return (
     <Layout>
       <SEO
-        title="Car Buying & Selling Guides — The CarsInMyCity Knowledge Center"
+        title="Car Buying & Selling Guides — The Knowledge Center"
         description="Every bit of knowledge a car buyer or seller could need, in one place. Ten in-depth guides covering budgeting, inspections, test drives, pricing, listing photos, safe transactions, and more."
         canonical={canonicalUrl}
         keywords={[
@@ -89,7 +89,7 @@ export default function GuidesLandingPage() {
             className="inline-flex items-center gap-2 rounded-full bg-white/10 ring-1 ring-white/20 px-4 py-1.5 text-sm font-semibold text-accent mb-6"
           >
             <GraduationCap className="h-4 w-4" />
-            The CarsInMyCity Knowledge Center
+            The Knowledge Center
           </motion.span>
 
           <motion.h1
