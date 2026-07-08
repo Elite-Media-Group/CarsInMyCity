@@ -1,4 +1,5 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useState } from "react";
 import { Layout } from "@/components/layout";
 import { CarCard } from "@/components/car-card";
 import { Button } from "@/components/ui/button";
@@ -11,10 +12,22 @@ import { USMap } from "@/components/us-map";
 import { SEO } from "@/components/seo";
 
 export default function Home() {
-  const { data: recentCars = [] } = useGetRecentCars({ limit: 4 });
-  const { data: featuredCars = [] } = useGetFeaturedCars({ limit: 4 });
+  const { data: recentCars = [], isLoading: recentLoading } = useGetRecentCars({ limit: 4 });
+  const { data: featuredCars = [], isLoading: featuredLoading } = useGetFeaturedCars({ limit: 4 });
   const { data: summary } = useGetMarketplaceSummary();
-  const { data: topMakes = [] } = useGetTopMakes({ limit: 6 });
+  const { data: topMakes = [], isLoading: makesLoading } = useGetTopMakes({ limit: 6 });
+  const [, navigate] = useLocation();
+  const [keyword, setKeyword] = useState("");
+  const [zip, setZip] = useState("");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (keyword.trim()) params.set("make", keyword.trim());
+    if (zip.trim()) params.set("zip", zip.trim());
+    const qs = params.toString();
+    navigate(qs ? `/search?${qs}` : "/search");
+  };
+
 
   return (
     <Layout>
@@ -56,23 +69,27 @@ export default function Home() {
             >
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input 
-                  placeholder="Make, model, or keyword..." 
+                <Input
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleSearch(); }}
+                  placeholder="Make, model, or keyword..."
                   className="pl-10 h-12 border-0 bg-muted/50 rounded-xl focus-visible:ring-primary/20 text-base"
                 />
               </div>
               <div className="relative w-full sm:w-48">
                 <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input 
-                  placeholder="ZIP code" 
+                <Input
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleSearch(); }}
+                  placeholder="ZIP code"
                   className="pl-10 h-12 border-0 bg-muted/50 rounded-xl focus-visible:ring-primary/20 text-base"
                 />
               </div>
-              <Link href="/search">
-                <Button size="lg" className="h-12 w-full sm:w-auto rounded-xl px-8 font-semibold text-base">
-                  Search Cars
-                </Button>
-              </Link>
+              <Button onClick={handleSearch} size="lg" className="h-12 w-full sm:w-auto rounded-xl px-8 font-semibold text-base">
+                Search Cars
+              </Button>
             </motion.div>
 
             <motion.div
@@ -164,9 +181,15 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredCars.map(car => (
-              <CarCard key={car.id} car={car} />
-            ))}
+            {featuredLoading ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">Loading featured cars...</p>
+              ) : featuredCars.length === 0 ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">No featured cars available right now.</p>
+              ) : (
+                featuredCars.map(car => (
+                  <CarCard key={car.id} car={car} />
+                ))
+              )}
           </div>
         </div>
       </section>
@@ -180,14 +203,20 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {topMakes.map(make => (
-              <Link key={make.make} href={`/search?make=${make.make}`}>
-                <div className="bg-muted hover:bg-primary/5 rounded-2xl p-6 text-center transition-colors border border-transparent hover:border-primary/20 cursor-pointer group">
-                  <div className="font-semibold text-lg group-hover:text-primary transition-colors">{make.make}</div>
-                  <div className="text-sm text-muted-foreground">{make.count} listings</div>
-                </div>
-              </Link>
-            ))}
+            {makesLoading ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">Loading brands...</p>
+              ) : topMakes.length === 0 ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">No brands to show yet.</p>
+              ) : (
+                topMakes.map(make => (
+                  <Link key={make.make} href={`/search?make=${make.make}`}>
+                    <div className="bg-muted hover:bg-primary/5 rounded-2xl p-6 text-center transition-colors border border-transparent hover:border-primary/20 cursor-pointer group">
+                      <div className="font-semibold text-lg group-hover:text-primary transition-colors">{make.make}</div>
+                      <div className="text-sm text-muted-foreground">{make.count} listings</div>
+                    </div>
+                  </Link>
+                ))
+              )}
           </div>
         </div>
       </section>
@@ -206,9 +235,15 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {recentCars.map(car => (
-              <CarCard key={car.id} car={car} />
-            ))}
+            {recentLoading ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">Loading latest cars...</p>
+              ) : recentCars.length === 0 ? (
+                <p className="col-span-full text-center text-muted-foreground py-8">No cars have been added yet.</p>
+              ) : (
+                recentCars.map(car => (
+                  <CarCard key={car.id} car={car} />
+                ))
+              )}
           </div>
         </div>
       </section>
