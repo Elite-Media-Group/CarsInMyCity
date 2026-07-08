@@ -4,14 +4,31 @@ import path from "path";
 import { randomUUID } from "crypto";
 import { mkdirSync } from "fs";
 
+// In serverless environments (Netlify/AWS Lambda) the working directory is
+// read-only; only /tmp is writable. Fall back to /tmp so importing this module
+// never crashes the function at boot. NOTE: /tmp is ephemeral, so uploads do
+// not persist across invocations — object storage (S3/R2/Netlify Blobs) is the
+// proper long-term fix.
+const isServerless = Boolean(
+  process.env.NETLIFY ||
+    process.env.AWS_LAMBDA_FUNCTION_NAME ||
+    process.env.LAMBDA_TASK_ROOT,
+);
 const WORKSPACE_ROOT = path.resolve(process.cwd(), "..", "..");
-const IMAGES_DIR = path.join(WORKSPACE_ROOT, "images");
+const IMAGES_DIR =
+  process.env.IMAGES_DIR ||
+  (isServerless ? "/tmp/images" : path.join(WORKSPACE_ROOT, "images"));
 
 const listingsDir = path.join(IMAGES_DIR, "listings");
 const profilesDir = path.join(IMAGES_DIR, "profiles");
 
-mkdirSync(listingsDir, { recursive: true });
-mkdirSync(profilesDir, { recursive: true });
+// Best-effort: never throw at import time if the directory cannot be created.
+try {
+  mkdirSync(listingsDir, { recursive: true });
+  mkdirSync(profilesDir, { recursive: true });
+} catch {
+  // ignore — upload routes will surface a clear error if storage is unavailable
+}
 
 function makeStorage(subfolder: "listings" | "profiles") {
   return multer.diskStorage({

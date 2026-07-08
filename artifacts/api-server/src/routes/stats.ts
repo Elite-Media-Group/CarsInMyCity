@@ -28,9 +28,9 @@ router.get("/stats/summary", async (req, res): Promise<void> => {
   const [newToday] = await db.select({ total: count() }).from(carsTable).where(gte(carsTable.createdAt, today));
 
   const makeGroups = await db.select({ make: carsTable.make, total: count() })
-    .from(carsTable).where(eq(carsTable.status, "active")).groupBy(carsTable.make).limit(1);
+    .from(carsTable).where(eq(carsTable.status, "active")).groupBy(carsTable.make).orderBy(sql`count(*) desc`).limit(1);
   const stateGroups = await db.select({ state: carsTable.state, total: count() })
-    .from(carsTable).where(eq(carsTable.status, "active")).groupBy(carsTable.state).limit(1);
+    .from(carsTable).where(eq(carsTable.status, "active")).groupBy(carsTable.state).orderBy(sql`count(*) desc`).limit(1);
 
   res.json({
     totalListings: totalListings.total,
@@ -64,14 +64,14 @@ router.get("/stats/price-ranges", async (req, res): Promise<void> => {
   ];
   const result = await Promise.all(ranges.map(async ({ label, min, max }) => {
     const [{ total }] = await db.select({ total: count() }).from(carsTable)
-      .where(sql`status = 'active' AND CAST(price AS NUMERIC) >= ${min} AND CAST(price AS NUMERIC) < ${max}`);
+      .where(sql`${carsTable.status} = 'active' AND ${carsTable.price} >= ${min} AND ${carsTable.price} < ${max}`);
     return { label, min, max, count: total };
   }));
   res.json(result);
 });
 
 router.get("/stats/top-makes", async (req, res): Promise<void> => {
-  const limit = parseInt(String(req.query.limit ?? "10"), 10);
+  const limit = Math.min(Number(req.query.limit) || 10, 50);
   const rows = await db.select({ make: carsTable.make, total: count() })
     .from(carsTable).where(eq(carsTable.status, "active"))
     .groupBy(carsTable.make).orderBy(sql`count(*) desc`).limit(limit);

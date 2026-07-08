@@ -1,5 +1,5 @@
 import {
-  pgTable, serial, text, integer, numeric, boolean, timestamp, pgEnum, jsonb
+  pgTable, serial, text, integer, numeric, boolean, timestamp, pgEnum, jsonb, index
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
@@ -48,7 +48,14 @@ export const carsTable = pgTable("cars", {
   favoriteCount: integer("favorite_count").default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  makeIdx: index("cars_make_idx").on(table.make),
+  modelIdx: index("cars_model_idx").on(table.model),
+  stateIdx: index("cars_state_idx").on(table.state),
+  cityIdx: index("cars_city_idx").on(table.city),
+  priceIdx: index("cars_price_idx").on(table.price),
+  statusIdx: index("cars_status_idx").on(table.status),
+}));
 
 export const insertCarSchema = createInsertSchema(carsTable).omit({ id: true, createdAt: true, updatedAt: true });
 export type InsertCar = z.infer<typeof insertCarSchema>;

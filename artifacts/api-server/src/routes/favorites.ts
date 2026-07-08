@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, and } from "drizzle-orm";
+import { eq, and, inArray, sql } from "drizzle-orm";
 import { db, favoritesTable, carsTable, usersTable } from "@workspace/db";
 import { AddFavoriteBody, RemoveFavoriteParams } from "@workspace/api-zod";
 
@@ -36,19 +36,17 @@ function formatCar(c: typeof carsTable.$inferSelect, isFavorited = true) {
   };
 }
 
-router.get("/favorites", async (req, res): Promise<void> => {
+router.get("/favorites", async (_req, res): Promise<void> => {
   const userId = await getCurrentUserId();
-  const favs = await db.select().from(favoritesTable).where(eq(favoritesTable.userId, userId));
-  const carIds = favs.map((f) => f.carId);
+  const favRows = await db.select().from(favoritesTable)
+    .where(eq(favoritesTable.userId, userId));
+  const carIds = favRows.map((f) => f.carId);
   if (carIds.length === 0) {
     res.json([]);
     return;
   }
-  const cars = await db.select().from(carsTable).where(
-    carIds.length === 1
-      ? eq(carsTable.id, carIds[0])
-      : eq(carsTable.id, carIds[0]) // simplified - real app would use inArray
-  );
+  const cars = await db.select().from(carsTable)
+    .where(inArray(carsTable.id, carIds));
   res.json(cars.map((c) => formatCar(c, true)));
 });
 
@@ -58,19 +56,33 @@ router.post("/favorites", async (req, res): Promise<void> => {
     res.status(400).json({ error: parsed.error.message });
     return;
   }
-  const userId = await getCurrentUserId();
   const { carId } = parsed.data;
+  const userId = await getCurrentUserId();
 
   const existing = await db.select().from(favoritesTable)
     .where(and(eq(favoritesTable.userId, userId), eq(favoritesTable.carId, carId)));
   if (existing.length > 0) {
-    res.status(201).json(existing[0]);
+    res.status(201).json({
+      id: existing[0].id,
+      userId: existing[0].userId,
+      carId: existing[0].carId,
+      createdAt: existing[0].createdAt.toISOString(),
+    });
     return;
   }
 
-  const [fav] = await db.insert(favoritesTable).values({ userId, carId }).returning();
-  await db.update(carsTable).set({ favoriteCount: (await db.select().from(carsTable).where(eq(carsTable.id, carId)))[0]?.favoriteCount ?? 0 + 1 }).where(eq(carsTable.id, carId));
-  res.status(201).json({ id: fav.id, userId: fav.userId, carId: fav.carId, createdAt: fav.createdAt.toISOString() });
+  const [fav] = await db.insert(favoritesTable)
+    .values({ userId, carId })
+    .returning();
+  await db.update(carsTable)
+    .set({ favoriteCount: sql`${carsTable.favoriteCount} + 1` })
+    .where(eq(carsTable.id, carId));
+  res.status(201).json({
+    id: fav.id,
+    userId: fav.userId,
+    carId: fav.carId,
+    createdAt: fav.createdAt.toISOString(),
+  });
 });
 
 router.delete("/favorites/:carId", async (req, res): Promise<void> => {
@@ -80,8 +92,14 @@ router.delete("/favorites/:carId", async (req, res): Promise<void> => {
     return;
   }
   const userId = await getCurrentUserId();
-  await db.delete(favoritesTable)
-    .where(and(eq(favoritesTable.userId, userId), eq(favoritesTable.carId, params.data.carId)));
+  const deleted = await db.delete(favoritesTable)
+    .where(and(eq(favoritesTable.userId, userId), eq(favoritesTable.carId, params.data.carId)))
+    .returning();
+  if (deleted.length > 0) {
+    await db.update(carsTable)
+      .set({ favoriteCount: sql`GREATEST(${carsTable.favoriteCount} - 1, 0)` })
+      .where(eq(carsTable.id, params.data.carId));
+  }
   res.sendStatus(204);
 });
 
