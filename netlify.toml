@@ -1,0 +1,12 @@
+[build]
+base = "artifacts/cars-in-my-city"
+command = "corepack enable && pnpm install --frozen-lockfile=false && pnpm run build"
+publish = "dist/public"
+[build.environment]
+BASE_PATH = "/"
+PORT = "3000"
+NODE_VERSION = "24"
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
