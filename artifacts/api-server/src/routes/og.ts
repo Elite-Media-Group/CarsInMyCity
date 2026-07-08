@@ -1,6 +1,4 @@
 import { Router, type IRouter } from "express";
-import satori from "satori";
-import { Resvg } from "@resvg/resvg-js";
 import { db } from "@workspace/db";
 import { carsTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
@@ -56,6 +54,8 @@ function el(type: string, props: Record<string, unknown>, ...children: Child[]) 
 }
 
 async function renderPng(element: unknown): Promise<Buffer> {
+  const { default: satori } = await import("satori");
+  const { Resvg } = await import("@resvg/resvg-js");
   const font = await getFont();
   const svg = await satori(element as Parameters<typeof satori>[0], {
     width: 1200,
