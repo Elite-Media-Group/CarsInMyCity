@@ -11,6 +11,7 @@ import statsRouter from "./stats";
 import searchRouter from "./search";
 import ogRouter from "./og";
 import uploadsRouter from "./uploads";
+import eventsRouter from "./events";
 
 const router: IRouter = Router();
 
@@ -27,4 +28,5 @@ router.use(makesRouter);
 router.use(statsRouter);
 router.use(searchRouter);
 
+router.use(eventsRouter);
 export default router;
