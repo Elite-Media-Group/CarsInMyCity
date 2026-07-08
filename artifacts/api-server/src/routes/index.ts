@@ -9,6 +9,7 @@ import inquiriesRouter from "./inquiries";
 import makesRouter from "./makes";
 import statsRouter from "./stats";
 import searchRouter from "./search";
+import searchCarsRouter from "./search-cars";
 import ogRouter from "./og";
 import uploadsRouter from "./uploads";
 
@@ -26,5 +27,6 @@ router.use(inquiriesRouter);
 router.use(makesRouter);
 router.use(statsRouter);
 router.use(searchRouter);
+router.use(searchCarsRouter);
 
 export default router;
