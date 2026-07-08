@@ -6,7 +6,7 @@ publish = "dist/public"
 BASE_PATH = "/"
 PORT = "3000"
 NODE_VERSION = "24"
-NPM_CONFIG_FROZEN_LOCKFILE = "false"
+PNPM_FLAGS = "--no-frozen-lockfile"
 [functions]
 directory = "../../netlify/functions"
 node_bundler = "esbuild"
