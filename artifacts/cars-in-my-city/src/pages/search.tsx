@@ -23,6 +23,7 @@ export default function Search() {
   const [condition, setCondition] = useState<string>(searchParams.get("condition") || "all");
   const [priceRange, setPriceRange] = useState<number[]>([0, 100000]);
   const [sortBy, setSortBy] = useState<string>(searchParams.get("sort") || "newest");
+  const [zip, setZip] = useState<string>(searchParams.get("zip") || "");
   const [showFilters, setShowFilters] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
@@ -36,8 +37,9 @@ export default function Search() {
     if (priceRange[0] > 0) params.priceMin = priceRange[0];
     if (priceRange[1] < 100000) params.priceMax = priceRange[1];
     if (sortBy) params.sortBy = sortBy as ListCarsSortBy;
+    if (zip) params.zipCode = zip;
     return params;
-  }, [make, condition, priceRange, sortBy]);
+  }, [make, condition, priceRange, sortBy, zip]);
 
   const { data: carsResponse, isLoading } = useListCars(apiParams);
   const cars = carsResponse?.cars || [];
