@@ -12,12 +12,36 @@ import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Heart, MapPin, Gauge, Calendar, ShieldCheck, Check, Share2, Info, ChevronRight, MessageSquare } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
+import { trackLoopEvent } from "@/lib/loop-client";
+import { LOOP_EVENTS } from "@/lib/loop-event-names";
 
 export default function CarDetail() {
   const [, params] = useRoute("/cars/:id");
   const id = params?.id ? parseInt(params.id, 10) : 0;
   
   const { data: car, isLoading, error } = useGetCar(id, { query: { enabled: !!id } });
+
+  // Emit a Loop "car_viewed" event once the listing has loaded. Best-effort
+  // telemetry; Loop is the source of truth for view/behavior data. Never
+  // blocks render and never exposes any secret (server signs the webhook).
+  useEffect(() => {
+    if (!car) return;
+    void trackLoopEvent(LOOP_EVENTS.CAR_VIEWED, {
+      car_id: car.id,
+      vin: car.vin ?? null,
+      year: car.year,
+      make: car.make,
+      model: car.model,
+      trim: car.trim ?? null,
+      price: car.price ?? null,
+      mileage: car.mileage ?? null,
+      condition: car.condition ?? null,
+      city: car.city ?? null,
+      state: car.state ?? null,
+      seller_type: car.sellerType ?? null,
+    });
+  }, [car]);
   const { data: similarCars = [] } = useGetRecentCars({ limit: 4 }); // Mock similar cars
 
   if (isLoading) {
