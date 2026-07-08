@@ -6,6 +6,15 @@ publish = "dist/public"
 BASE_PATH = "/"
 PORT = "3000"
 NODE_VERSION = "24"
+[functions]
+directory = "../../netlify/functions"
+node_bundler = "esbuild"
+external_node_modules = ["@resvg/resvg-js"]
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/api/api/:splat"
+status = 200
+force = true
 [[redirects]]
 from = "/*"
 to = "/index.html"
